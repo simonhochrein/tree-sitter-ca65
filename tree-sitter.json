@@ -1,0 +1,27 @@
+{
+  "grammars": [
+    {
+      "name": "ca65",
+      "camelcase": "Ca65",
+      "scope": "source.ca65",
+      "path": ".",
+      "file-types": ["s", "asm", "assembly"]
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "license": "ISC",
+    "description": "",
+    "links": {
+      "repository": "https://github.com/tree-sitter/tree-sitter-ca65"
+    }
+  },
+  "bindings": {
+    "c": false,
+    "go": false,
+    "node": false,
+    "python": false,
+    "rust": true,
+    "swift": false
+  }
+}

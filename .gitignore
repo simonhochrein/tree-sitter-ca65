@@ -1,3 +1,4 @@
+target/
+*.log
 *.s
-*.dylib
-
+node_modules/

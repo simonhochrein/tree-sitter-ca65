@@ -1,3 +1,6 @@
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
+
 module.exports = grammar({
   name: "ca65",
   extras: ($) => [/ |\t|\r/, $.line_comment, $.block_comment],
@@ -17,16 +20,11 @@ module.exports = grammar({
           ),
         ),
       ),
-    section: ($) =>
-      seq(
-        $.label,
-        field("body", repeat(choice($.subsection, $.instruction, $.macro))),
-      ),
+    section: ($) => seq($.label, field("body", repeat($.section_body))),
+    section_body: ($) => choice($.subsection, $.instruction, $.macro, "\n"),
     subsection: ($) =>
-      seq(
-        $.sublabel,
-        field("body", repeat(choice($.instruction, $.macro, "\n"))),
-      ),
+      seq($.sublabel, field("body", repeat($.subsection_body))),
+    subsection_body: ($) => choice($.instruction, $.macro, "\n"),
     instruction: ($) => seq($.opcode, optional($.operands), "\n"),
     constant: ($) => seq($.identifier, "=", $.operand),
 
