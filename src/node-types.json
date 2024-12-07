@@ -19,6 +19,21 @@
     }
   },
   {
+    "type": "include",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "instruction",
     "named": true,
     "fields": {},
@@ -70,6 +85,10 @@
           "named": true
         },
         {
+          "type": "include",
+          "named": true
+        },
+        {
           "type": "operands",
           "named": true
         }
@@ -90,6 +109,10 @@
         },
         {
           "type": "immediate",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -254,6 +277,10 @@
     "named": false
   },
   {
+    "type": ".include",
+    "named": false
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -279,6 +306,10 @@
   },
   {
     "type": "opcode",
+    "named": true
+  },
+  {
+    "type": "string",
     "named": true
   }
 ]

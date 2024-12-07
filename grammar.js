@@ -31,11 +31,14 @@ module.exports = grammar({
     opcode: ($) => /[a-z]{3}/,
     identifier: ($) => /[A-Za-z0-9_-]+/,
     operands: ($) => choice(seq($.operand, ",", $.operand), $.operand),
-    operand: ($) => choice($.immediate, $.identifier),
-    immediate: ($) => /\$?[0-9]+/,
+    operand: ($) => choice($.immediate, $.string, $.identifier),
     label: ($) => seq($.identifier, ":", "\n"),
-    sublabel: ($) => seq(/\.[A-Za-z0-9_-]+/, ":", "\n"),
-    macro: ($) => seq(".", $.identifier, $.operands, "\n"),
+    sublabel: ($) => seq(/\@[A-Za-z0-9_-]+/, ":", "\n"),
+    macro: ($) => choice($.include, seq(".", $.identifier, $.operands, "\n")),
+    include: ($) => seq(".include", $.string),
+
+    immediate: ($) => /\$?[0-9A-Fa-f]+/,
+    string: ($) => /"(.*)"/,
 
     line_comment: ($) => seq(";", token.immediate(/.*/), "\n"),
     block_comment: ($) => token(seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")),

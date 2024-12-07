@@ -202,13 +202,13 @@
         },
         {
           "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "SYMBOL",
           "name": "identifier"
         }
       ]
-    },
-    "immediate": {
-      "type": "PATTERN",
-      "value": "\\$?[0-9]+"
     },
     "label": {
       "type": "SEQ",
@@ -232,7 +232,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "\\.[A-Za-z0-9_-]+"
+          "value": "\\@[A-Za-z0-9_-]+"
         },
         {
           "type": "STRING",
@@ -245,25 +245,55 @@
       ]
     },
     "macro": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "include"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "operands"
+            },
+            {
+              "type": "STRING",
+              "value": "\n"
+            }
+          ]
+        }
+      ]
+    },
+    "include": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "."
+          "value": ".include"
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "operands"
-        },
-        {
-          "type": "STRING",
-          "value": "\n"
+          "name": "string"
         }
       ]
+    },
+    "immediate": {
+      "type": "PATTERN",
+      "value": "\\$?[0-9A-Fa-f]+"
+    },
+    "string": {
+      "type": "PATTERN",
+      "value": "\"(.*)\""
     },
     "line_comment": {
       "type": "SEQ",
