@@ -18,9 +18,15 @@ module.exports = grammar({
         ),
       ),
     section: ($) =>
-      seq($.label, repeat(choice($.subsection, $.instruction, $.macro))),
+      seq(
+        $.label,
+        field("body", repeat(choice($.subsection, $.instruction, $.macro))),
+      ),
     subsection: ($) =>
-      seq($.sublabel, repeat(choice($.instruction, $.macro, "\n"))),
+      seq(
+        $.sublabel,
+        field("body", repeat(choice($.instruction, $.macro, "\n"))),
+      ),
     instruction: ($) => seq($.opcode, optional($.operands), "\n"),
     constant: ($) => seq($.identifier, "=", $.operand),
 

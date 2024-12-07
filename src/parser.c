@@ -11,9 +11,9 @@
 #define ALIAS_COUNT 0
 #define TOKEN_COUNT 13
 #define EXTERNAL_TOKEN_COUNT 0
-#define FIELD_COUNT 0
+#define FIELD_COUNT 1
 #define MAX_ALIAS_SEQUENCE_LENGTH 4
-#define PRODUCTION_ID_COUNT 1
+#define PRODUCTION_ID_COUNT 2
 
 enum ts_symbol_identifiers {
   anon_sym_LF = 1,
@@ -213,6 +213,24 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = false,
   },
+};
+
+enum ts_field_identifiers {
+  field_body = 1,
+};
+
+static const char * const ts_field_names[] = {
+  [0] = NULL,
+  [field_body] = "body",
+};
+
+static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+  [1] = {.index = 0, .length = 1},
+};
+
+static const TSFieldMapEntry ts_field_map_entries[] = {
+  [0] =
+    {field_body, 1},
 };
 
 static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH] = {
@@ -1177,15 +1195,15 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [58] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_section, 1, 0, 0), SHIFT(44),
   [61] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_program, 1, 0, 0),
   [63] = {.entry = {.count = 1, .reusable = true}}, SHIFT(2),
-  [65] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_section, 2, 0, 0),
-  [67] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_section, 2, 0, 0), SHIFT(20),
-  [70] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_section, 2, 0, 0),
-  [72] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_section, 2, 0, 0), SHIFT(44),
-  [75] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_subsection, 2, 0, 0),
-  [77] = {.entry = {.count = 2, .reusable = true}}, REDUCE(sym_subsection, 2, 0, 0), SHIFT(9),
-  [80] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_subsection, 2, 0, 0), SHIFT(20),
-  [83] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_subsection, 2, 0, 0),
-  [85] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_subsection, 2, 0, 0), SHIFT(44),
+  [65] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_section, 2, 0, 1),
+  [67] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_section, 2, 0, 1), SHIFT(20),
+  [70] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_section, 2, 0, 1),
+  [72] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_section, 2, 0, 1), SHIFT(44),
+  [75] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_subsection, 2, 0, 1),
+  [77] = {.entry = {.count = 2, .reusable = true}}, REDUCE(sym_subsection, 2, 0, 1), SHIFT(9),
+  [80] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_subsection, 2, 0, 1), SHIFT(20),
+  [83] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_subsection, 2, 0, 1),
+  [85] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_subsection, 2, 0, 1), SHIFT(44),
   [88] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_subsection, 1, 0, 0),
   [90] = {.entry = {.count = 2, .reusable = true}}, REDUCE(sym_subsection, 1, 0, 0), SHIFT(7),
   [93] = {.entry = {.count = 2, .reusable = false}}, REDUCE(sym_subsection, 1, 0, 0), SHIFT(20),
@@ -1269,6 +1287,9 @@ TS_PUBLIC const TSLanguage *tree_sitter_ca65(void) {
     .small_parse_table_map = ts_small_parse_table_map,
     .parse_actions = ts_parse_actions,
     .symbol_names = ts_symbol_names,
+    .field_names = ts_field_names,
+    .field_map_slices = ts_field_map_slices,
+    .field_map_entries = ts_field_map_entries,
     .symbol_metadata = ts_symbol_metadata,
     .public_symbol_map = ts_symbol_map,
     .alias_map = ts_non_terminal_alias_map,

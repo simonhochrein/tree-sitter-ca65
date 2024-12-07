@@ -47,23 +47,27 @@
           "name": "label"
         },
         {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "body",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "subsection"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "instruction"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "macro"
-              }
-            ]
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "subsection"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "instruction"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "macro"
+                }
+              ]
+            }
           }
         }
       ]
@@ -76,23 +80,27 @@
           "name": "sublabel"
         },
         {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "body",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "instruction"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "macro"
-              },
-              {
-                "type": "STRING",
-                "value": "\n"
-              }
-            ]
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "instruction"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "macro"
+                },
+                {
+                  "type": "STRING",
+                  "value": "\n"
+                }
+              ]
+            }
           }
         }
       ]
