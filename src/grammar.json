@@ -207,6 +207,10 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\@[A-Za-z0-9_-]+"
         }
       ]
     },
@@ -249,7 +253,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "include"
+          "name": "macro_include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macro_proc"
         },
         {
           "type": "SEQ",
@@ -274,7 +282,7 @@
         }
       ]
     },
-    "include": {
+    "macro_include": {
       "type": "SEQ",
       "members": [
         {
@@ -284,6 +292,55 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        }
+      ]
+    },
+    "macro_proc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ".proc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "section"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "subsection"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "instruction"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "macro"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_newline"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ".endproc"
         }
       ]
     },

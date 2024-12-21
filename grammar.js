@@ -33,12 +33,30 @@ module.exports = grammar({
     opcode: ($) => /[a-z]{3}/,
     identifier: ($) => /[A-Za-z0-9_-]+/,
     operands: ($) => choice(seq($.operand, ",", $.operand), $.operand),
-    operand: ($) => choice($.immediate, $.string, $.identifier),
+    operand: ($) =>
+      choice($.immediate, $.string, $.identifier, /\@[A-Za-z0-9_-]+/),
     label: ($) => seq($.identifier, ":", $._newline),
     sublabel: ($) => seq(/\@[A-Za-z0-9_-]+/, ":", $._newline),
     macro: ($) =>
-      choice($.include, seq(".", $.identifier, $.operands, $._newline)),
-    include: ($) => seq(".include", $.string),
+      choice(
+        $.macro_include,
+        $.macro_proc,
+        seq(".", $.identifier, $.operands, $._newline),
+      ),
+    macro_include: ($) => seq(".include", $.string),
+
+    macro_proc: ($) =>
+      seq(
+        ".proc",
+        $._newline,
+        field(
+          "body",
+          repeat(
+            choice($.section, $.subsection, $.instruction, $.macro, $._newline),
+          ),
+        ),
+        ".endproc",
+      ),
 
     immediate: ($) => /\$?[0-9A-Fa-f]+/,
     string: ($) => /"(.*)"/,

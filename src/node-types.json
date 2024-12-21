@@ -19,21 +19,6 @@
     }
   },
   {
-    "type": "include",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "instruction",
     "named": true,
     "fields": {},
@@ -85,7 +70,11 @@
           "named": true
         },
         {
-          "type": "include",
+          "type": "macro_include",
+          "named": true
+        },
+        {
+          "type": "macro_proc",
           "named": true
         },
         {
@@ -96,12 +85,59 @@
     }
   },
   {
-    "type": "operand",
+    "type": "macro_include",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
       "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "macro_proc",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "\n",
+            "named": false
+          },
+          {
+            "type": "instruction",
+            "named": true
+          },
+          {
+            "type": "macro",
+            "named": true
+          },
+          {
+            "type": "section",
+            "named": true
+          },
+          {
+            "type": "subsection",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "operand",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "identifier",
@@ -266,7 +302,15 @@
     "named": false
   },
   {
+    "type": ".endproc",
+    "named": false
+  },
+  {
     "type": ".include",
+    "named": false
+  },
+  {
+    "type": ".proc",
     "named": false
   },
   {
